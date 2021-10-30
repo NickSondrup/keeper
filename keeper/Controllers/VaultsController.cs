@@ -34,12 +34,32 @@ namespace keeper.Controllers
     }
 
     [HttpGet("{vaultId}")]
-    public ActionResult<Vault> Get(int vaultId)
+    public async  Task<ActionResult<Vault>> Get(int vaultId)
     {
       try
       {
-       Vault vault = _vaultsService.Get(vaultId);
-       return vault;
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        if(userInfo == null)
+        {
+          Vault pVault = _vaultsService.publicGet(vaultId);
+          return pVault;
+        }
+        Vault vault = _vaultsService.Get(vaultId, userInfo.Id);
+        return vault;
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpGet("{vaultId}/keeps")]
+    public ActionResult<List<VaultKeepViewModel>> GetVaultsKeeps(int vaultId)
+    {
+      try
+      {
+        List<VaultKeepViewModel> keeps = _vaultsService.GetVaultsKeeps(vaultId);
+        return Ok(keeps);
       }
       catch (System.Exception e)
       {
@@ -49,7 +69,7 @@ namespace keeper.Controllers
 
     [Authorize]
     [HttpPost]
-    public async  Task<ActionResult<Vault>> Post([FromBody] Vault vaultData)
+    public async Task<ActionResult<Vault>> Post([FromBody] Vault vaultData)
     {
       try
       {
@@ -58,6 +78,39 @@ namespace keeper.Controllers
         Vault createdVault = _vaultsService.Post(vaultData);
         createdVault.Creator = userInfo;
         return Ok(createdVault);
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [Authorize]
+    [HttpPut("{vaultId}")]
+    public async Task<ActionResult<Vault>> Put([FromBody] Vault vaultData, int vaultId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        vaultData.CreatorId = userInfo.Id;
+        vaultData.Id = vaultId;
+        return Ok(_vaultsService.Edit(vaultData, userInfo.Id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [Authorize]
+    [HttpDelete("{vaultId}")]
+    public async Task<ActionResult> Delete(int vaultId)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        _vaultsService.Delete(vaultId, userInfo.Id);
+        return Ok("the vault was deleted");
       }
       catch (System.Exception e)
       {

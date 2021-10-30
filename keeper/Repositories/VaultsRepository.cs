@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -59,6 +60,34 @@ namespace keeper.Repositories
      var id = _db.ExecuteScalar<int>(sql, vaultData);
      vaultData.Id = id;
      return vaultData;
+    }
+
+    internal object Edit(Vault foundVault)
+    {
+      string sql = @"
+      UPDATE vaults
+      SET
+      name = @Name,
+      description = @Description,
+      isPrivate = @IsPrivate
+      WHERE id = @Id LIMIT 1;
+      ";
+      var rowsAffected = _db.Execute(sql, foundVault);
+      if (rowsAffected == 0)
+      {
+        throw new Exception("Update failed I guess");
+      }
+      return foundVault;
+    }
+
+    internal void Delete(int vaultId)
+    {
+      var sql = "DELETE FROM vaults WHERE id = @vaultId LIMIT 1;";
+      var rowsAffected = _db.Execute(sql, new{ vaultId });
+      if(rowsAffected == 0)
+      {
+        throw new Exception("Delete failed for some reason");
+      }
     }
   }
 }

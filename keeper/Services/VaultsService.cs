@@ -8,10 +8,12 @@ namespace keeper.Services
   public class VaultsService
   {
     private readonly VaultsRepository _vaultsRepository;
+    private readonly VaultKeepsRepository _vaultKeepsRepository;
 
-    public VaultsService(VaultsRepository vaultsRepository)
+    public VaultsService(VaultsRepository vaultsRepository, VaultKeepsRepository vaultKeepsRepository)
     {
       _vaultsRepository = vaultsRepository;
+      _vaultKeepsRepository = vaultKeepsRepository;
     }
 
     public List<Vault> Get()
@@ -19,12 +21,26 @@ namespace keeper.Services
       return _vaultsRepository.Get();
     }
 
-    internal Vault Get(int vaultId)
+    internal Vault Get(int vaultId, string userId)
     {
       Vault foundVault = _vaultsRepository.Get(vaultId);
       if(foundVault == null)
       {
         throw new Exception("This thang don't done exist none.");
+      }
+      if(foundVault.IsPrivate == true && foundVault.CreatorId != userId)
+      {
+        
+        throw new Exception("Can't view someones private vault.");
+      }
+      return foundVault;
+    }
+    internal Vault publicGet(int vaultId)
+    {
+      Vault foundVault =_vaultsRepository.Get(vaultId);
+      if(foundVault.IsPrivate == true)
+      {
+        throw new Exception("Can't view someones private vault.");
       }
       return foundVault;
     }
@@ -32,6 +48,34 @@ namespace keeper.Services
     internal Vault Post(Vault vaultData)
     {
       return _vaultsRepository.Post(vaultData);
+    }
+
+    internal object Edit(Vault vaultData, string userId)
+    {
+      Vault foundVault = Get(vaultData.Id, userId);
+      if(foundVault.CreatorId != userId)
+      {
+        throw new Exception("Can't edit whats not yours");
+      }
+      foundVault.Description = vaultData.Description ?? foundVault.Description;
+      foundVault.IsPrivate = vaultData.IsPrivate;
+      foundVault.Name = vaultData.Name;
+      return _vaultsRepository.Edit(foundVault);
+    }
+
+    internal List<VaultKeepViewModel> GetVaultsKeeps(int vaultId)
+    {
+      return _vaultKeepsRepository.GetVaultsKeeps(vaultId);
+    }
+
+    internal void Delete(int vaultId, string userId)
+    {
+      Vault foundVault = Get(vaultId, userId);
+      if(foundVault.CreatorId != userId)
+      {
+        throw new Exception("Can't delete what not yours fool");
+      }
+      _vaultsRepository.Delete(vaultId);
     }
   }
 }
