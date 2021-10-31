@@ -63,8 +63,22 @@ namespace keeper.Services
       return _vaultsRepository.Edit(foundVault);
     }
 
-    internal List<VaultKeepViewModel> GetVaultsKeeps(int vaultId)
+    internal List<VaultKeepViewModel> GetVaultsKeeps(int vaultId, string userId)
     {
+      if(userId == null)
+      {
+        var foundVault = publicGet(vaultId);
+        if(foundVault.IsPrivate == true)
+        {
+          throw new Exception("Can't view someones private vault.");
+        }
+      return _vaultKeepsRepository.GetVaultsKeeps(vaultId);
+      }
+      var vault = Get(vaultId, userId);
+      if(vault.IsPrivate == true)
+      {
+        throw new Exception("Can't view someones private vault.");
+      }
       return _vaultKeepsRepository.GetVaultsKeeps(vaultId);
     }
 

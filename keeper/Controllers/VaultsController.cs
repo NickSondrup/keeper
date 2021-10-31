@@ -52,13 +52,14 @@ namespace keeper.Controllers
         return BadRequest(e.Message);
       }
     }
-
     [HttpGet("{vaultId}/keeps")]
-    public ActionResult<List<VaultKeepViewModel>> GetVaultsKeeps(int vaultId)
+    public async Task<ActionResult<List<VaultKeepViewModel>>> GetVaultsKeeps(int vaultId)
     {
       try
       {
-        List<VaultKeepViewModel> keeps = _vaultsService.GetVaultsKeeps(vaultId);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        var foundVault = Get(vaultId);
+        List<VaultKeepViewModel> keeps = _vaultsService.GetVaultsKeeps(vaultId, userInfo?.Id);
         return Ok(keeps);
       }
       catch (System.Exception e)
