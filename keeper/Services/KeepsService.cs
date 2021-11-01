@@ -22,6 +22,8 @@ namespace keeper.Services
     public Keep Get(int keepId)
     {
       var foundKeep = _keepsRepository.Get(keepId);
+      foundKeep.Views++;
+      _keepsRepository.AddView(foundKeep);
       if(foundKeep == null)
       {
         throw new Exception("This thang don't exist.");

@@ -4,6 +4,12 @@
       <div class="col-12">
         <img :src="profile.picture" alt="">
         <h1>{{profile.name}}</h1>
+        <h6 v-if="vaults">Keeps: {{keeps.length}}</h6>
+        <h6>Vaults: {{vaults.length}}</h6>
+      </div>
+      <div class="col-1 d-flex ">
+        <h1>Keeps</h1>
+        <i class="mdi mdi-plus fs-1 m-auto text-success selectable" title="Create Keep" data-bs-toggle="modal" data-bs-target="#keep-form"></i>
       </div>
     </div>
     <div class="row">
@@ -13,6 +19,12 @@
       <ProfileKeep v-for="k in keeps" :key="k.id" :keep="k" />
     </div>
   </div>
+
+  <Modal id="keep-form">
+    <template #modal-body>
+      <KeepForm />
+    </template>
+  </Modal>
 </template>
 
 

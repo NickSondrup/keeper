@@ -11,10 +11,21 @@ class KeepsService{
     AppState.keeps = res.data
   }
 
-  async addView(editable) {
-    const res = await api.put(`api/keeps/${editable.id}`, editable)
+  async getById(keepId) {
+    const res = await api.get(`api/keeps/${keepId}`)
     logger.log(res)
   }
+
+  async createKeep(keepData) {
+    const res = await api.post('api/keeps', keepData)
+    logger.log('createKeep', res)
+    AppState.keeps.unshift(res.data)
+  }
+
+  // async addView(editable) {
+  //   const res = await api.put(`api/keeps/${editable.id}`, editable)
+  //   logger.log(res)
+  // }
 }
 
 export const keepsService = new KeepsService()

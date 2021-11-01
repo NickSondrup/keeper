@@ -1,6 +1,6 @@
 <template>
 <div class="my-2">
-  <div class="card keep-card selectable" data-bs-toggle="modal" :data-bs-target="'#keep-details-' + keep.id" @click="addView()">
+  <div class="card keep-card selectable" data-bs-toggle="modal" :data-bs-target="'#keep-details-' + keep.id" @click="getById(keep.id)">
     <img :src="keep.img" alt="" class="rounded keep-img">
     <div class="card-title">
       <div class="d-flex justify-content-between">
@@ -29,13 +29,21 @@ export default {
     keep: { type: Object, default: () => {return new Object()}}
     },
   setup(props){
-    let editable = ref({})
+    // let editable = ref({})
     return {
-      editable,
-      addView() {
-        props.keep.views ++
-        editable = {...props.keep}
-        keepsService.addView(editable)
+      // editable,
+      // addView() {
+      //   props.keep.views ++
+      //   editable = {...props.keep}
+      //   keepsService.addView(editable)
+      // }
+      async getById(keepId){
+        try {
+          props.keep.views ++
+          await keepsService.getById(keepId)
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
       }
     }
   }

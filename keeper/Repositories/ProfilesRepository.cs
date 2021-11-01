@@ -23,8 +23,18 @@ namespace keeper.Repositories
 
     internal List<Keep> GetProfileKeeps(string profileId)
     {
-      var sql ="SELECT * FROM keeps WHERE creatorId = @profileId;";
-      return _db.Query<Keep>(sql, new{ profileId }).ToList();
+      var sql = @"
+      SELECT
+      k.*,
+      a.*
+      FROM keeps k
+      JOIN accounts a ON a.id = k.creatorId
+      WHERE creatorId = @profileId;";
+      return _db.Query<Keep, Profile, Keep>(sql, (k, a) => 
+      {
+        k.Creator = a;
+        return k;
+      }, new{ profileId }).ToList();
     }
 
     internal List<Vault> GetProfileVaults(string profileId)

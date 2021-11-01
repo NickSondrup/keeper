@@ -49,18 +49,25 @@ namespace keeper.Repositories
       SELECT
       vk.id as vaultKeepId,
       vk.keepId as keepId,
+      k.id as id,
       k.name as name,
       k.description as description,
       k.img as img,
       k.creatorId as creatorId,
       k.views as views,
       k.shares as shares,
-      k.keeps as keeps
+      k.keeps as keeps,
+      a.*
       FROM vault_keeps vk
       JOIN keeps k ON k.id = vk.keepId
+      JOIN accounts a ON a.id = k.creatorId
       WHERE vk.vaultId = @vaultId;
       ";
-      return _db.Query<VaultKeepViewModel>(sql, new { vaultId }).ToList();
+      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, a) => 
+      {
+        k.Creator = a;
+        return k;
+      }, new { vaultId }).ToList();
     }
   }
 }
