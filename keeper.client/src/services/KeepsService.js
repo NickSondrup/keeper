@@ -5,7 +5,8 @@ import { api } from "./AxiosService.js"
 class KeepsService{
 
   async getKeeps() {
-    AppState.keeps = []
+    // debugger
+    // AppState.keeps = []
     const res = await api.get('api/keeps')
     logger.log('getKeeps' ,res.data)
     AppState.keeps = res.data
@@ -16,10 +17,23 @@ class KeepsService{
     logger.log(res)
   }
 
+  async getVaultKeeps(vaultId) {
+    AppState.vaultKeeps = []
+    const res = await api.get(`api/vaults/${vaultId}/keeps`)
+    logger.log(res.data)
+    AppState.vaultKeeps = res.data
+  }
+
   async createKeep(keepData) {
     const res = await api.post('api/keeps', keepData)
     logger.log('createKeep', res)
     AppState.keeps.unshift(res.data)
+  }
+
+  async deleteKeep(keepId) {
+    const res = await api.delete(`api/keeps/${keepId}`)
+    logger.log('deleteKeep', res)
+    AppState.keeps = AppState.keeps.filter(k => k.id !== keepId)
   }
 
   // async addView(editable) {

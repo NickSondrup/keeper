@@ -17,10 +17,11 @@ class ProfilesService{
   }
 
   async getKeeps(profileId){
-    AppState.keeps = []
+    AppState.profileKeeps = []
     const res = await api.get(`api/profiles/${profileId}/keeps`)
-    AppState.keeps = res.data
-    logger.log(AppState.keeps)
+    logger.log(res)
+    AppState.profileKeeps = res.data
+    logger.log(AppState.profileKeeps)
   }
 
 }

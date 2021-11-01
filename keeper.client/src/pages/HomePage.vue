@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid mt-3">
+  <div class="container-fluid my-5">
     <div class="row">
       <Keep v-for="k in keeps" :key="k.id" :keep="k"/>
     </div>
@@ -14,9 +14,9 @@ import { AppState } from '../AppState.js'
 export default {
   name: 'Home',
   setup() {
-    onMounted(() =>{
+    onMounted( async () =>{
       try {
-        keepsService.getKeeps()
+        await keepsService.getKeeps()
       } catch (error) {
         Pop.toast(error.message, 'error')
       }

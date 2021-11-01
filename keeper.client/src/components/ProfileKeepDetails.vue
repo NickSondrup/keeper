@@ -31,7 +31,7 @@
           <div>
             <button class="btn btn-success">Add to Vault</button>
           </div>
-          <i class="mdi mdi-delete-outline fs-3 m-auto" title="delete"></i>
+          <i class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete" @click="deleteKeep(keep.id)"></i>
         </div>
 
       </div>
@@ -41,12 +41,25 @@
 
 
 <script>
+import { Modal } from 'bootstrap'
+import { keepsService } from '../services/KeepsService.js'
+import Pop from '../utils/Pop.js'
 export default {
   props: {
     keep: { type: Object, defualt: () => {return new Object()}}
     },
   setup(){
-    return {}
+    return {
+      async deleteKeep(keepId) {
+        try {
+          const modal = Modal.getOrCreateInstance(document.getElementById(`keep-details-${keepId}`))
+          modal.hide()
+          await keepsService.deleteKeep(keepId)
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
+      }
+    }
   }
 }
 </script>

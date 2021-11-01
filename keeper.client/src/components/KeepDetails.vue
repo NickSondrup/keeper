@@ -31,9 +31,9 @@
           <div>
             <button class="btn btn-success">Add to Vault</button>
           </div>
-          <i class="mdi mdi-delete-outline fs-3 m-auto" title="delete"></i>
+          <i v-if="account.id == keep.creatorId" class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete"></i>
           <div class="d-flex">
-            <img :src="keep.creator.picture" height="45" class="rounded m-auto" alt="">
+              <img :src="keep.creator.picture" height="45" class="rounded m-auto" alt="">
             <p class="fw-bold m-2 text-break">{{keep.creator.name}}</p>
           </div>
         </div>
@@ -45,12 +45,21 @@
 
 
 <script>
+import { computed } from '@vue/reactivity'
+import { AppState } from '../AppState.js'
+import { Modal } from 'bootstrap'
 export default {
   props: {
     keep: { type: Object, defualt: () => {return new Object()}}
     },
-  setup(){
-    return {}
+  setup(props){
+    return {
+      account: computed(() => AppState.account),
+      closeModal(){
+        const modal = Modal.getOrCreateInstance(`keep-details-${props.keep.id}`)
+        modal.hide()
+      }
+    }
   }
 }
 </script>

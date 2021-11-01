@@ -1,7 +1,4 @@
 <template>
-<!-- name 
-description 
-img -->
 <form @submit.prevent="createKeep()">
   <div class="form-group">
     <label for="name">Title</label>
