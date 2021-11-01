@@ -28,6 +28,9 @@
           </router-link>
         </li>
       </ul>
+        <router-link :to="{ name: 'Profile', params:{ profileId: account.id } }">
+          <img :src="user.picture" alt="user photo" height="40" class="rounded"/>
+        </router-link>
       <span class="navbar-text">
         <button
           class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
@@ -44,12 +47,6 @@
             aria-expanded="false"
             id="authDropdown"
           >
-            <img
-              :src="user.picture"
-              alt="user photo"
-              height="40"
-              class="rounded"
-            />
             <span class="mx-3 text-success lighten-30">{{ user.name }}</span>
           </div>
           <div
@@ -83,6 +80,7 @@ export default {
   setup() {
     return {
       user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       async login() {
         AuthService.loginWithPopup()
       },
