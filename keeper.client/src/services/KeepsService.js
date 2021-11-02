@@ -27,13 +27,18 @@ class KeepsService{
   async createKeep(keepData) {
     const res = await api.post('api/keeps', keepData)
     logger.log('createKeep', res)
-    AppState.keeps.unshift(res.data)
+    AppState.profileKeeps.unshift(res.data)
   }
 
   async deleteKeep(keepId) {
     const res = await api.delete(`api/keeps/${keepId}`)
     logger.log('deleteKeep', res)
     AppState.keeps = AppState.keeps.filter(k => k.id !== keepId)
+  }
+  async deleteProfileKeep(keepId) {
+    const res = await api.delete(`api/keeps/${keepId}`)
+    logger.log('deleteProfileKeep', res)
+    AppState.profileKeeps = AppState.profileKeeps.filter(k => k.id !== keepId)
   }
 
   // async addView(editable) {

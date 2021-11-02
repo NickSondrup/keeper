@@ -1,8 +1,8 @@
 <template>
   <div class="col-md-2">
     <router-link :to="{name: 'Vault', params: {vaultId: vault.id} }">
-      <div class="card vault-card selectable my-2">
-        <img src="https://1.bp.blogspot.com/-2Hkk5c3wqr4/X-GetMwxKTI/AAAAAAAAVHQ/CNPABYbLclEtpGjNiD8b77c4INVdNxSpwCLcBGAsYHQ/s16000/cyb-sec.png" alt="">
+      <div class="card vault-card selectable my-2 rounded">
+        <img src="https://1.bp.blogspot.com/-2Hkk5c3wqr4/X-GetMwxKTI/AAAAAAAAVHQ/CNPABYbLclEtpGjNiD8b77c4INVdNxSpwCLcBGAsYHQ/s16000/cyb-sec.png" alt="" class="rounded">
         <div class="vault-title">
           <h5>{{vault.name}}</h5>
         </div>

@@ -1,9 +1,14 @@
 <template>
-  <div class="container-fluid my-5">
-    <div class="row">
+<div class="container-fluid">
+  <div class="row">
+
+  <div class="masonry-container my-5">
+    <div class="">
       <Keep v-for="k in keeps" :key="k.id" :keep="k"/>
     </div>
   </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -29,8 +34,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container-fluid{
-  column-count: 4;
+.masonry-container{
+  columns: 4 200px;
 }
 
 </style>

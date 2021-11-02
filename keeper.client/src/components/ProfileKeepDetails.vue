@@ -31,7 +31,7 @@
           <div>
             <button class="btn btn-success">Add to Vault</button>
           </div>
-          <i class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete" @click="deleteKeep(keep.id)"></i>
+          <i v-if="account.id == keep.creatorId" class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete" @click="deleteProfileKeep(keep.id)"></i>
         </div>
 
       </div>
@@ -44,17 +44,24 @@
 import { Modal } from 'bootstrap'
 import { keepsService } from '../services/KeepsService.js'
 import Pop from '../utils/Pop.js'
+import { computed } from '@vue/reactivity'
+import { AppState } from '../AppState.js'
 export default {
   props: {
     keep: { type: Object, defualt: () => {return new Object()}}
     },
   setup(){
     return {
-      async deleteKeep(keepId) {
+      account: computed(() => AppState.account),
+
+      async deleteProfileKeep(keepId) {
         try {
-          const modal = Modal.getOrCreateInstance(document.getElementById(`keep-details-${keepId}`))
-          modal.hide()
-          await keepsService.deleteKeep(keepId)
+          if(await Pop.confirm()) {
+            const modal = Modal.getOrCreateInstance(document.getElementById(`keep-details-${keepId}`))
+            modal.hide()
+            await keepsService.deleteProfileKeep(keepId)
+            Pop.toast('keep deleted!', 'success')
+          }
         } catch (error) {
           Pop.toast(error.message, 'error')
         }

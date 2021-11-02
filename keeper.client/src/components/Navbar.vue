@@ -26,7 +26,7 @@
         </li>
       </ul>
         <router-link :to="{ name: 'Profile', params:{ profileId: account.id } }">
-          <img :src="user.picture" alt="user photo" height="40" class="rounded"/>
+          <img :src="user.picture" alt="user photo" height="40" class="rounded" v-if="user.isAuthenticated"/>
         </router-link>
       <span class="navbar-text">
         <button
@@ -73,6 +73,8 @@
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
 import { computed } from 'vue'
+import { vaultsService } from '../services/VaultsService.js'
+import { profilesService } from '../services/ProfilesService.js'
 export default {
   setup() {
     return {
@@ -80,6 +82,7 @@ export default {
       account: computed(() => AppState.account),
       async login() {
         AuthService.loginWithPopup()
+        profilesService.getVaults(account.id)
       },
       async logout() {
         AuthService.logout({ returnTo: window.location.origin })

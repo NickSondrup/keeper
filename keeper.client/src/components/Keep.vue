@@ -1,7 +1,7 @@
 <template>
-<div class="mb-3">
+<div class="mb-3 masonry">
   <div class="card keep-card selectable">
-    <img :src="keep.img" alt="" class="rounded keep-img" data-bs-toggle="modal" :data-bs-target="'#keep-details-' + keep.id" @click="getById(keep.id)">
+    <img :src="keep.img" alt="" class="rounded img-fluid" data-bs-toggle="modal" :data-bs-target="'#keep-details-' + keep.id" @click="getById(keep.id)">
     <div class="card-title">
       <router-link :to="{ name: 'Profile', params:{profileId: keep.creatorId} }">
         <div class="d-flex justify-content-between">
@@ -64,8 +64,9 @@ export default {
  bottom: 1%;
  left: 5%;
 }
-.keep-img{
-  width: 100%
+.masonry{
+  display: inline-block;
+  width: 100%;
 }
 
 </style>

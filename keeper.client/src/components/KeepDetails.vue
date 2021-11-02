@@ -31,7 +31,7 @@
           <div>
             <button class="btn btn-success">Add to Vault</button>
           </div>
-          <i v-if="account.id == keep.creatorId" class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete"></i>
+          <i v-if="account.id == keep.creatorId" class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete" @click="deleteKeep(keep.id)"></i>
           <div class="d-flex">
               <img :src="keep.creator.picture" height="45" class="rounded m-auto" alt="">
             <p class="fw-bold m-2 text-break">{{keep.creator.name}}</p>
@@ -48,6 +48,8 @@
 import { computed } from '@vue/reactivity'
 import { AppState } from '../AppState.js'
 import { Modal } from 'bootstrap'
+import Pop from '../utils/Pop.js'
+import { keepsService } from '../services/KeepsService.js'
 export default {
   props: {
     keep: { type: Object, defualt: () => {return new Object()}}
@@ -55,9 +57,17 @@ export default {
   setup(props){
     return {
       account: computed(() => AppState.account),
-      closeModal(){
-        const modal = Modal.getOrCreateInstance(`keep-details-${props.keep.id}`)
-        modal.hide()
+      async deleteKeep(keepId) {
+        try {
+          if(await Pop.confirm()) {
+            const modal = Modal.getOrCreateInstance(document.getElementById(`keep-details-${keepId}`))
+            modal.hide()
+            await keepsService.deleteKeep(keepId)
+            Pop.toast('keep deleted!', 'success')
+          }
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 <template>
-<div class="my-2 col-2">
+<div class="my-2 masonry">
   <div class="card keep-card selectable" data-bs-toggle="modal" :data-bs-target="'#keep-details-' + keep.id" @click="getById(keep.id)">
-    <img :src="keep.img" alt="" class="rounded keep-img">
+    <img :src="keep.img" alt="" class="rounded img-fluid">
     <div class="card-title">
       <div class="d-flex justify-content-between">
         <h5 class="fw-bolder mt-2">{{keep.name}}</h5>
@@ -59,8 +59,9 @@ export default {
  position: absolute;
  bottom: 1%
 }
-.keep-img{
-  width: 100%
+.masonry{
+  display: inline-block;
+  width: 100%;
 }
 
 </style>

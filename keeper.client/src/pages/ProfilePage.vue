@@ -28,7 +28,12 @@
         <i class="mdi mdi-plus fs-1 m-auto text-success selectable" title="Create Keep" data-bs-toggle="modal" data-bs-target="#keep-form"></i>
         </div>
       </div>
+    </div>
+    <div class="row">
+
+    <div class="masonry-container">
       <ProfileKeep v-for="k in profileKeeps" :key="k.id" :keep="k" />
+    </div>
     </div>
   </div>
 
@@ -84,5 +89,7 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.masonry-container{
+  columns: 6;
+}
 </style>

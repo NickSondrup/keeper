@@ -1,14 +1,23 @@
 <template>
   <div class="container-fluid">
-    <div class="row my-5">
-      <h1>{{vault.name}}</h1>
-      <h4>{{vault.description}}</h4>
-    </div>
-    <div class="row">
-      <Keep v-for="k in vaultKeeps" :key="k.id" :keep="k" />
+    <div class="row m-5">
+      <div class="col-12 d-flex justify-content-between">
+      <div>
+        <h1>{{vault.name}}</h1>
+        <h4>{{vault.description}}</h4>
+      </div>
+      <div>
+        <button v-if="account.id == vault.creatorId" class="btn btn-outline-dark mt-4" type="button" @click="deleteVault(vault.id, vault.creatorId)">
+          Delete Vault
+        </button>
+      </div>
+      </div>
     </div>
 
   </div>
+    <div class="masonry-container mx-3">
+      <Keep v-for="k in vaultKeeps" :key="k.id" :keep="k" />
+    </div>
 </template>
 
 
@@ -19,6 +28,7 @@ import { vaultsService } from '../services/VaultsService.js'
 import Pop from '../utils/Pop.js'
 import { AppState } from '../AppState.js'
 import { keepsService } from '../services/KeepsService.js'
+import { router } from '../router.js'
 export default {
   setup(){
     const route = useRoute()
@@ -28,7 +38,8 @@ export default {
       try {
         await vaultsService.getVault(route.params.vaultId)
       } catch (error) {
-        Pop.toast(error.message)
+        Pop.toast(error.message, 'error')
+        router.push({ name: 'Home'})
       }
       try {
         await keepsService.getVaultKeeps(route.params.vaultId)
@@ -38,7 +49,18 @@ export default {
     })
     return {
       vault: computed(()=> AppState.vault),
-      vaultKeeps: computed(()=> AppState.vaultKeeps)
+      vaultKeeps: computed(()=> AppState.vaultKeeps),
+      account: computed(() => AppState.account),
+      async deleteVault(vaultId, creatorId) {
+        try {
+          if(await Pop.confirm()){
+            await vaultsService.deleteVault(vaultId, creatorId)
+            Pop.toast('Vault was deleted', 'success')
+          } 
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
+      }
     }
   }
 }
@@ -46,5 +68,7 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.masonry-container{
+  columns: 4;
+}
 </style>
