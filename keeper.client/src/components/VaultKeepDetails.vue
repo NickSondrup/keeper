@@ -29,13 +29,15 @@
         </div>
         <div class="d-flex justify-content-between">
           <div>
-            <select name="" id="" v-model="editable.vaultId" @change="addKeepToVault()">
-              <option v-for="vault in userVaults" :key="vault.id" :value="vault.id">
-                {{vault.name}}
-              </option>
-            </select>
+           <button class="btn btn-outline-dark" @click="removeVaultKeep()" v-if="keep.creatorId == account.id">
+             remove from vault
+           </button>
           </div>
-          <i v-if="account.id == keep.creatorId" class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete" @click="deleteProfileKeep(keep.id)"></i>
+          <i v-if="account.id == keep.creatorId" class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete" @click="deleteKeep(keep.id)"></i>
+          <div class="d-flex">
+              <img :src="keep.creator.picture" height="45" class="rounded m-auto" alt="">
+            <p class="fw-bold m-2 text-break">{{keep.creator.name}}</p>
+          </div>
         </div>
 
       </div>
@@ -45,42 +47,44 @@
 
 
 <script>
-import { Modal } from 'bootstrap'
-import { keepsService } from '../services/KeepsService.js'
-import Pop from '../utils/Pop.js'
 import { computed, ref } from '@vue/reactivity'
 import { AppState } from '../AppState.js'
+import { Modal } from 'bootstrap'
+import Pop from '../utils/Pop.js'
+import { keepsService } from '../services/KeepsService.js'
+import { logger } from '../utils/Logger.js'
 import { vaultsService } from '../services/VaultsService.js'
 export default {
   props: {
     keep: { type: Object, defualt: () => {return new Object()}}
     },
   setup(props){
-    const editable = ref({})
+    const editable = ref({}) 
     return {
       editable,
-      account: computed(() => AppState.account),
       userVaults: computed(() => AppState.userVaults),
-      
-
-      async deleteProfileKeep(keepId) {
+      account: computed(() => AppState.account),
+      async deleteKeep(keepId) {
         try {
           if(await Pop.confirm()) {
             const modal = Modal.getOrCreateInstance(document.getElementById(`keep-details-${keepId}`))
             modal.hide()
-            await keepsService.deleteProfileKeep(keepId)
+            await keepsService.deleteKeep(keepId)
             Pop.toast('keep deleted!', 'success')
           }
         } catch (error) {
           Pop.toast(error.message, 'error')
         }
       },
-      async addKeepToVault() {
+
+      async removeVaultKeep() {
         try {
-          props.keep.keeps++
-          editable.value.keepId = props.keep.id
-          await vaultsService.addKeepToVault(editable.value)
-          Pop.toast('Keep Added to Vault!', 'success')
+          if(await Pop.confirm()) {
+            const modal = Modal.getOrCreateInstance(document.getElementById(`keep-details-${props.keep.id}`))
+            modal.hide()
+            await vaultsService.removeVaultKeep(props.keep.vaultKeepId)
+            Pop.toast('Keep Removed from Vault!', 'success')
+          }
         } catch (error) {
           Pop.toast(error.message, 'error')
         }

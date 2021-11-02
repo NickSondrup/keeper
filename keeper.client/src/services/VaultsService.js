@@ -24,6 +24,17 @@ class VaultsService{
     logger.log('deleteVault', res)
     router.push({ name: 'Profile', params: { profileId: profileId}})
   }
+
+  async addKeepToVault(data) {
+    const res = await api.post('api/vaultkeeps', data)
+    logger.log('addKeepToVault', res)
+  }
+
+  async removeVaultKeep(id) {
+    const res = await api.delete(`api/vaultkeeps/${id}`)
+    logger.log('removeVaultKeep', res)
+    AppState.vaultKeeps = AppState.vaultKeeps.filter(k => k.vaultKeepId != id)
+  }
 }
 
 export const vaultsService = new VaultsService()

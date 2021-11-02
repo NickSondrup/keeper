@@ -19,11 +19,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
-        <li>
+        <!-- <li>
           <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
             About
           </router-link>
-        </li>
+        </li> -->
       </ul>
         <router-link :to="{ name: 'Profile', params:{ profileId: account.id } }">
           <img :src="user.picture" alt="user photo" height="40" class="rounded" v-if="user.isAuthenticated"/>

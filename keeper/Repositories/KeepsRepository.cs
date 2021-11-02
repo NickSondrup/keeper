@@ -49,6 +49,7 @@ namespace keeper.Repositories
       }, new{keepId}).FirstOrDefault();
     }
 
+
     internal Keep Post(Keep newKeep)
     {
       var sql = @"
@@ -59,6 +60,21 @@ namespace keeper.Repositories
       var id = _db.ExecuteScalar<int>(sql, newKeep);
       newKeep.Id = id;
       return newKeep;
+    }
+
+    internal void AddKeepCount(Keep foundKeep)
+    {
+      string sql = @"
+      UPDATE keeps
+      SET
+      keeps = @Keeps
+      WHERE id = @Id; 
+      ";
+      var rowsAffected = _db.Execute(sql, foundKeep);
+      if(rowsAffected == 0)
+      {
+        throw new Exception("update failed");
+      }
     }
 
     internal void AddView(Keep foundKeep)

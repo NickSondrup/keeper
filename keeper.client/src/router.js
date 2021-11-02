@@ -11,11 +11,11 @@ const routes = [
     name: 'Home',
     component: loadPage('HomePage')
   },
-  {
-    path: '/about',
-    name: 'About',
-    component: loadPage('AboutPage')
-  },
+  // {
+  //   path: '/about',
+  //   name: 'About',
+  //   component: loadPage('AboutPage')
+  // },
   {
     path: '/account',
     name: 'Account',
@@ -31,7 +31,8 @@ const routes = [
   {
     path: '/vault/:vaultId',
     name: 'Vault',
-    component: loadPage('VaultPage')
+    component: loadPage('VaultPage'),
+    beforeEnter: authSettled
   }
 ]
 

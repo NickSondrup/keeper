@@ -68,14 +68,14 @@ namespace keeper.Services
       if(userId == null)
       {
         var foundVault = publicGet(vaultId);
-        if(foundVault.IsPrivate == true)
+        if(foundVault.IsPrivate == true && userId != foundVault.CreatorId)
         {
           throw new Exception("Can't view someones private vault.");
         }
       return _vaultKeepsRepository.GetVaultsKeeps(vaultId);
       }
       var vault = Get(vaultId, userId);
-      if(vault.IsPrivate == true)
+      if(vault.IsPrivate == true && vault.CreatorId != userId)
       {
         throw new Exception("Can't view someones private vault.");
       }

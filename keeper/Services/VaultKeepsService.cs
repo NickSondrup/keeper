@@ -7,20 +7,25 @@ namespace keeper.Services
   {
     private readonly VaultKeepsRepository _vaultKeepsRepository;
     private readonly VaultsRepository _vaultsRepository;
+    private readonly KeepsRepository _keepsRepository;
 
-    public VaultKeepsService(VaultKeepsRepository vaultKeepsRepository, VaultsRepository vaultsRepository)
+    public VaultKeepsService(VaultKeepsRepository vaultKeepsRepository, VaultsRepository vaultsRepository, KeepsRepository keepsRepository)
     {
       _vaultKeepsRepository = vaultKeepsRepository;
       _vaultsRepository = vaultsRepository;
+      _keepsRepository = keepsRepository;
     }
 
     public VaultKeep Post(VaultKeep newData)
     {
       var foundVault = _vaultsRepository.Get(newData.VaultId);
+      var foundKeep = _keepsRepository.Get(newData.KeepId);
       if(foundVault.CreatorId != newData.CreatorId)
       {
         throw new System.Exception("can't add to someone elses vault");
       }
+      foundKeep.Keeps++;
+      _keepsRepository.AddKeepCount(foundKeep);
       return _vaultKeepsRepository.Post(newData);
     }
 

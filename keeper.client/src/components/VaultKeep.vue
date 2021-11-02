@@ -15,7 +15,7 @@
 
 <Modal :id="'keep-details-' + keep.id">
   <template #modal-body>
-    <KeepDetails :keep="keep" />
+    <VaultKeepDetails :keep="keep" />
   </template>
 </Modal>
 </template>
@@ -33,6 +33,7 @@ export default {
     },
   setup(props){
     return {
+
       async getById(keepId){
         try {
           props.keep.views ++

@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <img :src="keep.img" alt="" class="rounded img-fluid">
       </div>
-      <div class="col-6 d-flex flex-column justify-content-between">
+      <div class="col-md-6 d-flex flex-column justify-content-between">
         <div class="">
           <div class="d-flex justify-content-around mx-5 px-5">
             <div>
@@ -28,8 +28,16 @@
           </div>
         </div>
         <div class="d-flex justify-content-between">
-          <div>
-            <button class="btn btn-success">Add to Vault</button>
+          <div v-if="user.isAuthenticated">
+            <form action="">
+
+            <label for="createVaultKeep">Add to vault:</label>
+            <select name="createVaultKeep" id="createVaultKeep" class="rounded" v-model="editable.vaultId" @change="addKeepToVault()">
+              <option v-for="vault in userVaults" :key="vault.id" :value="vault.id">
+                {{vault.name}}
+              </option>
+            </select>
+            </form>
           </div>
           <i v-if="account.id == keep.creatorId" class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete" @click="deleteKeep(keep.id)"></i>
           <div class="d-flex">
@@ -45,18 +53,24 @@
 
 
 <script>
-import { computed } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import { AppState } from '../AppState.js'
 import { Modal } from 'bootstrap'
 import Pop from '../utils/Pop.js'
 import { keepsService } from '../services/KeepsService.js'
+import { logger } from '../utils/Logger.js'
+import { vaultsService } from '../services/VaultsService.js'
 export default {
   props: {
     keep: { type: Object, defualt: () => {return new Object()}}
     },
   setup(props){
+    const editable = ref({}) 
     return {
+      editable,
+      userVaults: computed(() => AppState.userVaults),
       account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       async deleteKeep(keepId) {
         try {
           if(await Pop.confirm()) {
@@ -68,6 +82,18 @@ export default {
         } catch (error) {
           Pop.toast(error.message, 'error')
         }
+      },
+
+      async addKeepToVault() {
+        try {
+          props.keep.keeps++
+          editable.value.keepId = props.keep.id
+          await vaultsService.addKeepToVault(editable.value)
+          Pop.toast('Keep Added to Vault!', 'success')
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
+
       }
     }
   }

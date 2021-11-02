@@ -16,7 +16,7 @@
 
   </div>
     <div class="masonry-container mx-3">
-      <Keep v-for="k in vaultKeeps" :key="k.id" :keep="k" />
+      <VaultKeep v-for="k in vaultKeeps" :key="k.id" :keep="k" />
     </div>
 </template>
 
@@ -69,6 +69,6 @@ export default {
 
 <style lang="scss" scoped>
 .masonry-container{
-  columns: 4;
+  columns: 4 200px;
 }
 </style>
