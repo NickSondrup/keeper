@@ -23,7 +23,7 @@
           <div class="text-center my-3">
             <h1>{{keep.name}}</h1>
           </div>
-          <div class="border-bottom border-dark mx-2">
+          <div class="border-bottom border-light mx-2">
             <p class="py-3">{{keep.description}}</p>
           </div>
         </div>

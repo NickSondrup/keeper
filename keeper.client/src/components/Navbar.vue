@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-turq px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex">
-        <img alt="logo" src="https://gangsterreport.com/wp-content/uploads/2018/03/adh.jpg" class="rounded" height="45" />
-        <h1>Keeper</h1>
+        <img alt="logo" src="../assets/img/KeeperLogo.png" class="mx-3" height="75" />
+        <h1 class="text-turq-dark m-auto">Keeper</h1>
       </div>
     </router-link>
     <button
@@ -30,7 +30,7 @@
         </router-link>
       <span class="navbar-text">
         <button
-          class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
+          class="btn selectable text-turq-dark fw-bold fs-5 text-uppercase my-2 my-lg-0"
           @click="login"
           v-if="!user.isAuthenticated"
         >
@@ -44,7 +44,7 @@
             aria-expanded="false"
             id="authDropdown"
           >
-            <span class="mx-3 text-success lighten-30">{{ user.name }}</span>
+            <span class="mx-3 text-turq-dark fw-bold">{{ user.name }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"
@@ -93,6 +93,9 @@ export default {
 </script>
 
 <style scoped>
+.bg-turq {
+  background-color: #137e8e;
+}
 .dropdown-menu {
   user-select: none;
   display: block;
@@ -115,5 +118,11 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.text-turq-dark {
+  color: #020c0e;
+}
+.text-turq-dark {
+  color: #020c0e;
 }
 </style>

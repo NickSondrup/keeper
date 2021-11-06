@@ -2,12 +2,14 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="bg-turq-dark">
     <router-view />
   </main>
-  <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with much 💖 by Nick Sondrup
+  <footer class="bg-turq">
+    <div class="text-turq-light text-center p-4">
+      <p class="fw-bold">
+        Made with much 💖 by Nick Sondrup
+      </p>
     </div>
   </footer>
 </template>
@@ -26,5 +28,14 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
+.bg-turq {
+  background-color: #137e8e;
+}
+.bg-turq-dark {
+  background-color: #020c0e
+}
+.text-turq-dark {
+  color: #020c0e;
+}
 
 </style>
