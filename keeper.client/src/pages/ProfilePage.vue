@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid text-light">
     <div class="row mt-5">
       <div class="col-md-2">
         <img :src="profile.picture" alt="" height="200" class="ms-5 rounded">

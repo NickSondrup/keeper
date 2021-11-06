@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main class="bg-turq-dark">
+  <main class="bg-stone">
     <router-view />
   </main>
   <footer class="bg-turq">
@@ -33,6 +33,9 @@ export default {
 }
 .bg-turq-dark {
   background-color: #020c0e
+}
+.bg-stone {
+  background-image: url(https://thumbs.dreamstime.com/b/modern-dark-brick-wall-pattern-decorative-stone-wall-background-surface-black-wall-texture-modern-dark-brick-wall-pattern-174545922.jpg);
 }
 .text-turq-dark {
   color: #020c0e;

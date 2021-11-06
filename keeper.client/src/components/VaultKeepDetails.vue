@@ -29,7 +29,7 @@
         </div>
         <div class="d-flex justify-content-between">
           <div>
-           <button class="btn btn-outline-dark" @click="removeVaultKeep()" v-if="keep.creatorId == account.id">
+           <button class="btn btn-outline-secondary" @click="removeVaultKeep()" v-if="keep.creatorId == account.id">
              remove from vault
            </button>
           </div>

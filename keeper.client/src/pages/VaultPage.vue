@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid text-light">
     <div class="row m-5">
       <div class="col-12 d-flex justify-content-between">
       <div>
@@ -7,7 +7,7 @@
         <h4>{{vault.description}}</h4>
       </div>
       <div>
-        <button v-if="account.id == vault.creatorId" class="btn btn-outline-dark mt-4" type="button" @click="deleteVault(vault.id, vault.creatorId)">
+        <button v-if="account.id == vault.creatorId" class="btn btn-outline-secondary mt-4" type="button" @click="deleteVault(vault.id, vault.creatorId)">
           Delete Vault
         </button>
       </div>
