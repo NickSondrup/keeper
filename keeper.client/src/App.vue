@@ -32,7 +32,7 @@ export default {
   background-color: #137e8e;
 }
 .bg-turq-dark {
-  background-color: #020c0e
+  background-color: #020c0e;
 }
 .bg-stone {
   background-image: url(https://thumbs.dreamstime.com/b/modern-dark-brick-wall-pattern-decorative-stone-wall-background-surface-black-wall-texture-modern-dark-brick-wall-pattern-174545922.jpg);
