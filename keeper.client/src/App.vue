@@ -21,7 +21,7 @@ export default {
   name: 'App',
   setup() {
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState) 
     }
   }
 }
