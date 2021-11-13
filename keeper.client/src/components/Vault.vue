@@ -18,7 +18,9 @@ export default {
     vault: { type: Object, default: () => { return new Object()}}
   },
   setup(){
-    return {}
+    return {
+      
+    }
   }
 }
 </script>
