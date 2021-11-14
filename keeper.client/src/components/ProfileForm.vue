@@ -36,10 +36,17 @@ import Pop from '../utils/Pop.js'
 import { profilesService } from '../services/ProfilesService.js'
 import { Modal } from 'bootstrap'
 import { useRoute } from 'vue-router'
+import { watchEffect } from '@vue/runtime-core'
 export default {
-  setup(){
+  props:{
+    profile: { type: Object, default: () => {return new Object}}
+  },
+  setup(props){
     const editable = ref({})
     const route = useRoute()
+    watchEffect(() => {
+      editable.value = {...props.profile}
+    })
     return {
       editable,
 

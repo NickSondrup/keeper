@@ -1,11 +1,11 @@
 <template>
   <div class="container-fluid text-light">
-    <div class="row mt-5">
+    <div class="row py-5 bg-picture" :style="{backgroundImage: `url(${profile.coverImg})`}">
       <div class="col-md-2">
-        <img :src="profile.picture" alt="profile picture" class="ms-5 rounded profile-picture">
+        <img :src="profile.picture" alt="profile picture" class="ms-5 my-5 rounded profile-picture">
       </div>
       <div class="col-md-8">
-          <div class="ms-4">
+          <div class="ms-4 my-5">
             <h1>{{profile.name}}</h1>
             <h3>Vaults: {{vaults.length}}</h3>
             <h3>Keeps: {{profileKeeps.length}}</h3>
@@ -50,7 +50,7 @@
   </Modal>
   <Modal id="profile-form">
     <template #modal-body>
-      <ProfileForm />
+      <ProfileForm :profile="profile" />
     </template>
   </Modal>
 </template>
@@ -105,5 +105,9 @@ export default {
 .profile-picture{
   max-height: 200px;
   max-width: 200px;
+}
+.bg-picture{
+  background-position: center center;
+  background-size: cover;
 }
 </style>
