@@ -13,7 +13,7 @@
           </div>
       </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-2">
       <div class="col-12 d-flex">
         <div class="d-flex">
         <h1>Vaults</h1>

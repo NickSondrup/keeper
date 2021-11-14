@@ -12,14 +12,24 @@
         >
         </div>
         <div class="form-group">
-        <label for="picture">Picture Url</label>
-        <input type="text" 
-              v-model="editable.picture"
-              name="picture" 
-              id="picture"
-              class="form-control"
-              placeholder="Picture URL..."
-        >
+          <label for="picture">Picture Url</label>
+          <input type="text" 
+                v-model="editable.picture"
+                name="picture" 
+                id="picture"
+                class="form-control"
+                placeholder="Picture URL..."
+          >
+        </div>
+        <div class="form-group">
+          <label for="coverImg">Picture Url</label>
+          <input type="text" 
+                v-model="editable.coverImg"
+                name="coverImg" 
+                id="coverImg"
+                class="form-control"
+                placeholder="Cover Image URL..."
+          >
         </div>
         <div class="btn-group">
           <button type="submit" class="btn btn-success selectable mt-3 fw-bold">Update</button>
