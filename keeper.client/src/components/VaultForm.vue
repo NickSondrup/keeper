@@ -43,15 +43,17 @@ import { ref } from '@vue/reactivity'
 import Pop from '../utils/Pop.js'
 import { vaultsService } from '../services/VaultsService.js'
 import { Modal } from 'bootstrap'
+import { useRoute } from 'vue-router'
 export default {
   setup(){
     const editable = ref({})
+    const route = useRoute()
     return {
       editable,
 
       async createVault(){
         try {
-          await vaultsService.createVault(editable.value)
+          await vaultsService.createVault(editable.value, route.params.profileId)
           editable.value = {}
           Pop.toast("You've created a Vault!")
           const modal = Modal.getOrCreateInstance(document.getElementById('vault-form'))

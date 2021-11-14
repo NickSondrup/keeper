@@ -12,10 +12,12 @@ namespace keeper.Controllers
   public class ProfilesController : ControllerBase
   {
     private readonly ProfilesService _profilesService;
+    private readonly AccountService _accountService;
 
-    public ProfilesController(ProfilesService profilesService)
+    public ProfilesController(ProfilesService profilesService, AccountService accountService)
     {
       _profilesService = profilesService;
+      _accountService = accountService;
     }
 
     [HttpGet("{profileId}")]
@@ -55,10 +57,25 @@ namespace keeper.Controllers
         var vaults = _profilesService.GetProfileVaults(profileId, userInfo?.Id);
         return Ok(vaults);
       }
-      catch (System.Exception)
+      catch (System.Exception e)
       {
-          
-          throw;
+          return BadRequest(e.Message);
+      }
+    }
+
+    [HttpPut("{profileId}")]
+    public async Task<ActionResult<Account>> EditProfile(string profileId, [FromBody] Account newData)
+    {
+      try
+      {
+           Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+           var email = userInfo.Email;
+           var profile = _accountService.Edit(newData, email);
+           return Ok(profile);
+      }
+      catch (System.Exception e)
+      {
+          return BadRequest(e.Message);
       }
     }
   } 

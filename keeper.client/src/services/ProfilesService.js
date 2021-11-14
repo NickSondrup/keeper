@@ -32,6 +32,12 @@ class ProfilesService{
     logger.log('getKeeps', AppState.profileKeeps)
   }
 
+  async updateProfile(newData, profileId){
+    const res = await api.put(`api/profiles/${profileId}`, newData)
+    logger.log(res)
+    AppState.profile = res.data
+  }
+
 }
 
 export const profilesService = new ProfilesService()

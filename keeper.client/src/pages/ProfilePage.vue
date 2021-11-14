@@ -2,13 +2,14 @@
   <div class="container-fluid text-light">
     <div class="row mt-5">
       <div class="col-md-2">
-        <img :src="profile.picture" alt="" height="200" class="ms-5 rounded">
+        <img :src="profile.picture" alt="profile picture" class="ms-5 rounded profile-picture">
       </div>
-      <div class="col-md-10">
+      <div class="col-md-8">
           <div class="ms-4">
             <h1>{{profile.name}}</h1>
             <h3>Vaults: {{vaults.length}}</h3>
-            <h3 v-if="vaults">Keeps: {{profileKeeps.length}}</h3>
+            <h3>Keeps: {{profileKeeps.length}}</h3>
+            <button class="btn btn-edit fw-bold" data-bs-toggle="modal" data-bs-target="#profile-form">Edit Profile</button>
           </div>
       </div>
     </div>
@@ -45,6 +46,11 @@
   <Modal id="vault-form">
     <template #modal-body>
       <VaultForm />
+    </template>
+  </Modal>
+  <Modal id="profile-form">
+    <template #modal-body>
+      <ProfileForm />
     </template>
   </Modal>
 </template>
@@ -92,5 +98,12 @@ export default {
 <style lang="scss" scoped>
 .masonry-container{
   columns: 6 200px;
+}
+.btn-edit{
+   background-color: #137e8e;
+}
+.profile-picture{
+  max-height: 200px;
+  max-width: 200px;
 }
 </style>
