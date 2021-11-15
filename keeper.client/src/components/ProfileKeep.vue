@@ -57,7 +57,8 @@ export default {
 }
 .card-title{
  position: absolute;
- bottom: 1%
+ bottom: 1%;
+ left: 5%;
 }
 .masonry{
   display: inline-block;
