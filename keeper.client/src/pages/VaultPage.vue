@@ -10,6 +10,7 @@
         <button v-if="account.id == vault.creatorId" class="btn btn-outline-secondary mt-4" type="button" @click="deleteVault(vault.id, vault.creatorId)">
           Delete Vault
         </button>
+        <button>Edit Vault</button>
       </div>
       </div>
     </div>

@@ -26,7 +26,7 @@
         </li> -->
       </ul>
         <router-link :to="{ name: 'Profile', params:{ profileId: account.id } }">
-          <img :src="user.picture" alt="user photo" height="40" class="rounded" v-if="user.isAuthenticated"/>
+          <img :src="account.picture" alt="user photo" height="40" class="rounded" v-if="user.isAuthenticated"/>
         </router-link>
       <span class="navbar-text">
         <button
@@ -44,7 +44,7 @@
             aria-expanded="false"
             id="authDropdown"
           >
-            <span class="mx-3 text-turq-dark fw-bold">{{ user.name }}</span>
+            <span class="mx-3 text-turq-dark fw-bold">{{ account.name }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"
