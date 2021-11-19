@@ -7,10 +7,10 @@
         <h4>{{vault.description}}</h4>
       </div>
       <div>
-        <button v-if="account.id == vault.creatorId" class="btn btn-outline-secondary mt-4" type="button" @click="deleteVault(vault.id, vault.creatorId)">
+        <button v-if="account.id == vault.creatorId" class="btn btn-outline-success mt-4"  data-bs-toggle="modal" data-bs-target="#edit-vault-form">Edit Vault</button>
+        <button v-if="account.id == vault.creatorId" class="btn btn-outline-warning mt-4 ms-4" type="button" @click="deleteVault(vault.id, vault.creatorId)">
           Delete Vault
         </button>
-        <button>Edit Vault</button>
       </div>
       </div>
     </div>
@@ -19,6 +19,12 @@
     <div class="masonry-container mx-3">
       <VaultKeep v-for="k in vaultKeeps" :key="k.id" :keep="k" />
     </div>
+
+    <Modal id="edit-vault-form">
+    <template #modal-body>
+      <VaultEditForm />
+    </template>
+  </Modal>
 </template>
 
 

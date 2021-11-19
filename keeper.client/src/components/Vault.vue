@@ -2,7 +2,7 @@
   <div class="col-md-2">
     <router-link :to="{name: 'Vault', params: {vaultId: vault.id} }">
       <div class="card vault-card selectable my-2 rounded">
-        <img src="https://i.pinimg.com/originals/ef/68/43/ef684323e1379fc9fb05b7ba799cbd71.jpg" alt="" class="rounded">
+        <img :src="vault.coverImg" alt="" class="rounded">
         <div class="vault-title">
           <h5>{{vault.name}}</h5>
         </div>

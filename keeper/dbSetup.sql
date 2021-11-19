@@ -10,6 +10,9 @@ CREATE TABLE IF NOT EXISTS accounts(
 ALTER TABLE accounts ADD COLUMN
   coverImg varchar(255) comment 'cover Image';
 
+  ALTER TABLE vaults ADD COLUMN
+    coverImg VARCHAR(255) default 'https://i.pinimg.com/originals/ef/68/43/ef684323e1379fc9fb05b7ba799cbd71.jpg' NOT NULL comment 'vault cover image';
+
 CREATE TABLE IF NOT EXISTS keeps(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT comment 'Keeps ID',
   creatorId VARCHAR(255) NOT NULL comment 'creator ID',

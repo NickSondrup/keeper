@@ -26,7 +26,7 @@
         </li> -->
       </ul>
         <router-link :to="{ name: 'Profile', params:{ profileId: account.id } }">
-          <img :src="account.picture" alt="user photo" height="40" class="rounded" v-if="user.isAuthenticated"/>
+          <img :src="account.picture" alt="user photo" height="60" class="rounded" v-if="user.isAuthenticated"/>
         </router-link>
       <span class="navbar-text">
         <button
