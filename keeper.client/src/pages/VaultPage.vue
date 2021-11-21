@@ -2,9 +2,12 @@
   <div class="container-fluid text-light">
     <div class="row m-5">
       <div class="col-12 d-flex justify-content-between">
-      <div>
-        <h1>{{vault.name}}</h1>
-        <h4>{{vault.description}}</h4>
+      <div class="d-flex">
+        <img :src="vault.coverImg" class="rounded" height="250" alt="vault's cover image">
+        <div class="m-5">
+          <h1>{{vault.name}}</h1>
+          <h4>{{vault.description}}</h4>
+        </div>
       </div>
       <div>
         <button v-if="account.id == vault.creatorId" class="btn btn-outline-success mt-4"  data-bs-toggle="modal" data-bs-target="#edit-vault-form">Edit Vault</button>

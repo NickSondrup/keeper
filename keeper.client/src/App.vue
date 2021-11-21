@@ -6,11 +6,13 @@
     <router-view />
   </main>
   <footer class="bg-turq">
-    <div class="text-turq-light text-center p-4">
+    <router-link :to="{name: 'About'}" >
+    <div class="text-turq-dark text-center p-4">
       <p class="fw-bold">
         Made with much 💖 by Nick Sondrup
       </p>
     </div>
+    </router-link>
   </footer>
 </template>
 

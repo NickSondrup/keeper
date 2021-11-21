@@ -25,6 +25,12 @@ class VaultsService{
     router.push({ name: 'Profile', params: { profileId: profileId}})
   }
 
+  async editVault(data, vaultId){
+    const res = await api.put(`api/vaults/${vaultId}`, data)
+    logger.log('editVault', res)
+    AppState.vault = res.data
+  }
+
   async addKeepToVault(data) {
     const res = await api.post('api/vaultkeeps', data)
     logger.log('addKeepToVault', res)

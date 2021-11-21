@@ -53,8 +53,8 @@ namespace keeper.Repositories
     internal Vault Post(Vault vaultData)
     {
      var sql = @"
-     INSERT INTO vaults (name, description, isPrivate, creatorId)
-     VALUES(@Name, @Description, @IsPrivate, @CreatorId);
+     INSERT INTO vaults (name, description, isPrivate, coverImg, creatorId)
+     VALUES(@Name, @Description, @IsPrivate, @CoverImg, @CreatorId);
      SELECT LAST_INSERT_ID();
      ";
      var id = _db.ExecuteScalar<int>(sql, vaultData);
@@ -69,7 +69,8 @@ namespace keeper.Repositories
       SET
       name = @Name,
       description = @Description,
-      isPrivate = @IsPrivate
+      isPrivate = @IsPrivate,
+      coverImg = @CoverImg
       WHERE id = @Id LIMIT 1;
       ";
       var rowsAffected = _db.Execute(sql, foundVault);

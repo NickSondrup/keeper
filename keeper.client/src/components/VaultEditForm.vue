@@ -20,6 +20,15 @@
         >
       </div>
       <div class="form-group">
+        <label for="description">Cover Image</label>
+        <input type="text"
+              v-model="editable.coverImg"
+              id="coverImg"
+              class="form-control"
+              placeholder="Cover Image URL..."
+        >
+      </div>
+      <div class="form-group">
         <input type="checkbox"
               v-model="editable.isPrivate"
               id="isPrivate"
@@ -55,7 +64,17 @@ export default {
     })
     return {
       editable,
-      // needs edit vault here
+      async editVault(){
+        try {
+          await vaultsService.editVault(editable.value, route.params.vaultId)
+          editable.value={}
+          Pop.toast("You've updated your vault!", 'success')
+          const modal = Modal.getOrCreateInstance(document.getElementById('edit-vault-form'))
+          modal.hide()
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+        }
+      }
       
     }
   }

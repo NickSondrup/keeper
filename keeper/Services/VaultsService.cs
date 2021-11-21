@@ -60,6 +60,7 @@ namespace keeper.Services
       foundVault.Description = vaultData.Description ?? foundVault.Description;
       foundVault.IsPrivate = vaultData.IsPrivate;
       foundVault.Name = vaultData.Name;
+      foundVault.CoverImg = vaultData.CoverImg;
       return _vaultsRepository.Edit(foundVault);
     }
 

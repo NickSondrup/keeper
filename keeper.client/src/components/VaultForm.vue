@@ -20,6 +20,15 @@
         >
       </div>
       <div class="form-group">
+        <label for="coverImg">Cover Image</label>
+        <input type="text"
+              v-model="editable.coverImg"
+              id="coverImg"
+              class="form-control"
+              placeholder="Cover Image URL..."
+        >
+      </div>
+      <div class="form-group">
         <input type="checkbox"
               v-model="editable.isPrivate"
               id="isPrivate"
