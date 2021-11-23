@@ -42,10 +42,11 @@ class KeepsService{
     AppState.profileKeeps = AppState.profileKeeps.filter(k => k.id !== keepId)
   }
 
-  // async addView(editable) {
-  //   const res = await api.put(`api/keeps/${editable.id}`, editable)
-  //   logger.log(res)
-  // }
+  async editKeep(keep) {
+    const res = await api.put(`api/keeps/${keep.id}`, keep)
+    logger.log(res)
+    this.getKeeps()
+  }
 }
 
 export const keepsService = new KeepsService()
