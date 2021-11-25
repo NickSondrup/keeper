@@ -30,25 +30,33 @@
         <div class="d-flex justify-content-between">
           <div v-if="user.isAuthenticated">
             <form action="">
-
-            <label for="createVaultKeep">Add to vault:</label>
-            <select name="createVaultKeep" id="createVaultKeep" class="rounded" v-model="editable.vaultId" @change="addKeepToVault()">
-              <option v-for="vault in userVaults" :key="vault.id" :value="vault.id">
+              <label for="createVaultKeep">Add to vault:</label>
+              <select name="createVaultKeep" id="createVaultKeep" class="rounded" v-model="editable.vaultId" @change="addKeepToVault()">
+                <option v-for="vault in userVaults" :key="vault.id" :value="vault.id">
                 {{vault.name}}
-              </option>
-            </select>
+                </option>
+              </select>
             </form>
           </div>
           <i v-if="account.id == keep.creatorId" class="mdi mdi-delete-outline fs-3 m-auto selectable" title="delete" @click="deleteKeep(keep.id)"></i>
-          <div class="d-flex">
-              <img :src="keep.creator.picture" height="45" class="rounded m-auto" alt="">
-            <p class="fw-bold m-2 text-break">{{keep.creator.name}}</p>
+          <!-- <div>
+            <button v-if="account.id == keep.creatorId" class="btn-secondary btn" data-bs-toggle="modal" data-bs-target="#edit-keep-form">
+              Edit Keep
+              </button>
+          </div> -->
+          <div class="">
+              <img :src="keep.creator.picture" height="45" class="rounded-circle m-auto" alt="">
           </div>
         </div>
 
       </div>
     </div>
   </div>
+  <!-- <Modal id="edit-keep-form">
+    <template #modal-body>
+      <KeepEditForm />
+    </template>
+  </Modal> -->
 </template>
 
 
