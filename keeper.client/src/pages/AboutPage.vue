@@ -2,6 +2,7 @@
   <div class="container-fluid">
     <div class="row my-5">
       <div class="col-12 d-flex justify-content-center">
+        <!-- about me card -->
         <div class="card about-card text-center bg-turq-dark text-light">
           <div class="">
             <div class="my-3">
