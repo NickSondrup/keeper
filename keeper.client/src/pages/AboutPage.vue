@@ -11,7 +11,7 @@
             </div>
             <div class="text-start mx-3">
               <ul>
-                <li class="fs-4 my-2"><b>What is my name? Nick Sondrup</b></li>
+                <li class="fs-4 my-2"><b>What is my name? Nicholas Sondrup</b></li>
                 <li class="fs-5 my-2"><b>What is my quest?</b> To make fantastic applications from well structured and secure back ends to alluring and accessible front ends.</li>
                 <li class="my-2"><b>What is my favorite color?</b> Turquoise.</li>
                 <li class="my-2"><b>What is the airspeed velocity of an unladen swallow?</b> Assuming a european swallow, about 24 miles per hour or 11 meters a second.</li>
